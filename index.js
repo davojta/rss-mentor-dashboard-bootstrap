@@ -1,7 +1,7 @@
-const fs = require('fs');
+const fs = require("fs");
 
 if (typeof require !== "undefined") XLSX = require("xlsx");
-var illnessWorkbook = XLSX.readFile("_data/rss-stream/Заболеваемость.xlsx");
+
 const workerListWorkboox = XLSX.readFile(
   "_data/rss-stream/Список работников.xlsx"
 );
@@ -28,22 +28,53 @@ const getWorker = (sheet, currentRow) => {
 const getWorkers = sheet => {
   const rows = [2, 3, 4, 5];
 
-  return rows.map((row) => {
+  return rows.map(row => {
     return getWorker(sheet, row);
   });
 };
 
-const worker = {
-  name: "Иванова Ольга Пеонидовна",
-  tabNumber: "1519",
-  startDate: "10/11/1993"
-};
+// const worker = {
+//   name: "Иванова Ольга Пеонидовна",
+//   tabNumber: "1519",
+//   startDate: "10/11/1993"
+// };
 const sheet = workerListWorkboox.Sheets["Sheet1"];
 // console.log('values', workerListWorkboox.Sheets['Sheet1']['B2']['v'])
 const workers = getWorkers(sheet);
 // console.log("worker");
 const json = JSON.stringify(workers, 0, 2);
 
-fs.writeFile("data.json", json, "utf8", () => {
-  console.log("writing is done!");
-});
+// fs.writeFile("data.json", json, "utf8", () => {
+//   console.log("writing is done!");
+// });
+
+// ===============================
+var illnessWorkbook = XLSX.readFile("_data/rss-stream/Заболеваемость.xlsx");
+
+const getRecord = (sheet, currentRow) => {
+  const fieldMapping = {
+    name: "B",
+    tabNumber: "D",
+    begin: "K",
+    end: "L"
+  };
+
+  const record = {
+    name: sheet[fieldMapping.name + currentRow].v,
+    tabNumber: sheet[fieldMapping.tabNumber + currentRow].v,
+    begin: sheet[fieldMapping.begin + currentRow].w,
+    end: sheet[fieldMapping.end + currentRow].w
+  };
+
+  return record;
+};
+
+const getRecords = sheet => {
+  const rows = [2, 3, 4, 5, 6, 7];
+
+  return rows.map(row => {
+    return getRecord(sheet, row);
+  });
+};
+const records = getRecords(illnessWorkbook.Sheets['Sheet1']);
+console.log("records", records);
