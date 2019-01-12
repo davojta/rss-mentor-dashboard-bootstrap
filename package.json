@@ -1,0 +1,24 @@
+{
+  "name": "rss-mentor-dashboard-bootstrap",
+  "version": "1.0.0",
+  "description": "help student with the task",
+  "main": "index.js",
+  "scripts": {
+    "process": "node ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davojta/rss-mentor-dashboard-bootstrap.git"
+  },
+  "author": "davojta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davojta/rss-mentor-dashboard-bootstrap/issues"
+  },
+  "homepage": "https://github.com/davojta/rss-mentor-dashboard-bootstrap#readme",
+  "dependencies": {
+    "react": "^16.7.0",
+    "xlsx": "^0.14.1"
+  }
+}
