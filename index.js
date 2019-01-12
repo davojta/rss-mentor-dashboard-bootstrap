@@ -42,11 +42,6 @@ const sheet = workerListWorkboox.Sheets["Sheet1"];
 // console.log('values', workerListWorkboox.Sheets['Sheet1']['B2']['v'])
 const workers = getWorkers(sheet);
 // console.log("worker");
-const json = JSON.stringify(workers, 0, 2);
-
-// fs.writeFile("data.json", json, "utf8", () => {
-//   console.log("writing is done!");
-// });
 
 // ===============================
 var illnessWorkbook = XLSX.readFile("_data/rss-stream/Заболеваемость.xlsx");
@@ -77,4 +72,28 @@ const getRecords = sheet => {
   });
 };
 const records = getRecords(illnessWorkbook.Sheets['Sheet1']);
-console.log("records", records);
+// console.log("records", records);
+
+const results = records.map((record) => {
+    console.log('record', record);
+    
+    const worker = workers.find(w => w.tabNumber === record.tabNumber);
+
+    if (!worker) return ;
+
+    return {
+        name: worker.name,
+        startDate: worker.startDate,
+        illBegin: record.begin,
+        illEnd: record.end
+    }
+});
+
+console.log('results', results.filter(r => r));
+
+const json = JSON.stringify(results, 0, 2);
+
+fs.writeFile("data.json", json, "utf8", () => {
+  console.log("writing is done!");
+});
+
