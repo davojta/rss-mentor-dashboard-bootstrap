@@ -28,7 +28,9 @@ const getWorker = (sheet, currentRow) => {
 const getWorkers = sheet => {
   const rows = [2, 3, 4, 5];
 
-  return rows.map(getWorker.bind(null, sheet));
+  return rows.map((row) => {
+    return getWorker(sheet, row);
+  });
 };
 
 const worker = {
