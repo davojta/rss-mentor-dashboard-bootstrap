@@ -71,29 +71,30 @@ const getRecords = sheet => {
     return getRecord(sheet, row);
   });
 };
-const records = getRecords(illnessWorkbook.Sheets['Sheet1']);
+const records = getRecords(illnessWorkbook.Sheets["Sheet1"]);
 // console.log("records", records);
 
-const results = records.map((record) => {
-    console.log('record', record);
-    
+const results = records
+  .map(record => {
+    console.log("record", record);
+
     const worker = workers.find(w => w.tabNumber === record.tabNumber);
 
-    if (!worker) return ;
+    if (!worker) return;
 
     return {
-        name: worker.name,
-        startDate: worker.startDate,
-        illBegin: record.begin,
-        illEnd: record.end
-    }
-});
+      name: worker.name,
+      startDate: worker.startDate,
+      illBegin: record.begin,
+      illEnd: record.end
+    };
+  })
+  .filter(r => r);
 
-console.log('results', results.filter(r => r));
+console.log("results", results);
 
 const json = JSON.stringify(results, 0, 2);
 
 fs.writeFile("data.json", json, "utf8", () => {
   console.log("writing is done!");
 });
-
