@@ -19,6 +19,6 @@
   "homepage": "https://github.com/davojta/rss-mentor-dashboard-bootstrap#readme",
   "dependencies": {
     "react": "^16.7.0",
-    "xlsx": "^0.14.1"
+    "xlsx": "^0.17.0"
   }
 }
